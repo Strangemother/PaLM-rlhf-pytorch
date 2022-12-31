@@ -410,6 +410,7 @@ class RLHFTrainer(nn.Module):
         time = 0
         memories = deque([])
 
+        print(f'Training on {num_episodes*max_timesteps} steps')
         for eps in tqdm(range(num_episodes), desc = 'episodes'):
             for timestep in range(max_timesteps):
                 time += 1
@@ -462,9 +463,9 @@ class RLHFTrainer(nn.Module):
 
                 reward = self.reward_model(
                     sequence,
-                    prompt_mask = prompt_mask,
-                    mask = mask,
-                    sample = True
+                    prompt_mask=prompt_mask,
+                    mask=mask,
+                    sample=True
                 )
 
                 detach_to_cpu_ = lambda t: rearrange(t.detach().cpu(), '1 ... -> ...')
